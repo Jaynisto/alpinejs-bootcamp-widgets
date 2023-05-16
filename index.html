@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="greet.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Bootcamp Widget</title>
 </head>
 <body>
-    
+    <h1>The Greeting Widget</h1>
+    <div class="greet" x-data="{
+        name : '',
+        greetingMessage : '',
+        language : '',
+        }">
+        <input x-model="name"/>
+
+        <button @click="greetingMessage = !greetingMessage">Greet</button>
+        <div class="radios">
+            <input type="radio" x-model="language" value="english">
+            <label for="english">English</label><br>
+            <input type="radio" x-model="language" value="zulu">
+            <label for="zulu">isiZulu</label><br>
+            <input type="radio" x-model="language" value="xhosa">
+            <label for="xhosa">isiXhosa</label><br>
+        </div>
+        <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
+
+    </div>    
 </body>
 </html>
