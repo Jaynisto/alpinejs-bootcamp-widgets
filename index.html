@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="greet.js"></script>
+    <script src="totalphonebill.js"></script>
+    <script src="transportFee.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Bootcamp Widget</title>
@@ -28,7 +30,34 @@
             <label for="xhosa">isiXhosa</label><br>
         </div>
         <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
+    </div> 
+    <hr> 
+    <h1>Total Phone Bill Widget</h1> 
+    <div x-data="{
+        callsAndSms : '',
+        total : ''
+    }">
 
+        <div class="totalphonebill">
+            <input type="text" x-model="callsAndSms">
+            <button @click="total = !total">Calculate</button>
+            <div x-show.transition="total" x-text="totalPhoneBill(callsAndSms)"></div>
+        </div>
+
+    </div> 
+    <hr>
+    <h1>Transport Fee Widget</h1>
+    <div x-data="{
+        shift : '',
+        amount : '',
+    }">
+
+    <div class="transportFee">
+        <input type="text" x-model="shift">
+        <button @click="amount = !amount">Show Cost</button>
+        <div x-show.transition="amount" x-text="transportFee(shift)"></div>
     </div>    
+
+    </div>
 </body>
 </html>

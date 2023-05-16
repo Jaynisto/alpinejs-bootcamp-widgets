@@ -5,9 +5,23 @@
     align-items: center;
 }
 
+.totalphonebill {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.transportFee {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
 button { 
-    height: 30px;
-    width: 46px;
+    height: 40px;
+    width: 76px;
 }
 
 input {
