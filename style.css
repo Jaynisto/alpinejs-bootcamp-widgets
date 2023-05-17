@@ -19,6 +19,12 @@
     align-items: center;
 }
 
+.itemsOver {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
 button { 
     height: 40px;
     width: 76px;

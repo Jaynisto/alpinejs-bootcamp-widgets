@@ -7,6 +7,7 @@
     <script src="greet.js"></script>
     <script src="totalphonebill.js"></script>
     <script src="transportFee.js"></script>
+    <script src="findingItemsOver20.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Bootcamp Widget</title>
@@ -17,9 +18,35 @@
         name : '',
         greetingMessage : '',
         language : '',
+        shift : '',
+        amount : '',
+        callsAndSms : '',
+        total : '',
+        itemList1 : [
+        {name : 'apples', qty : 10},
+        {name : 'pears', qty : 19},
+        {name : 'bananas', qty : 17},
+        {name : 'apples', qty : 3},
+        ],
+        itemList2 : [
+        {name : 'apples', qty : 10},
+        {name : 'pears', qty : 37},
+        {name : 'bananas', qty : 27},
+        {name : 'apples', qty : 3},
+        ],
+        itemList3 : [
+        {name : 'apples', qty : 40},
+        {name : 'pears', qty : 20},
+        {name : 'bananas', qty : 23},
+        {name : 'apples', qty : 37}
+        ],
+        itemsOver : '',
+        itemList : '',
+        threshold : '',
+        listOfItems : []
         }">
-        <input x-model="name"/>
 
+        <input x-model="name"/>
         <button @click="greetingMessage = !greetingMessage">Greet</button>
         <div class="radios">
             <input type="radio" x-model="language" value="english">
@@ -30,34 +57,111 @@
             <label for="xhosa">isiXhosa</label><br>
         </div>
         <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
-    </div> 
-    <hr> 
-    <h1>Total Phone Bill Widget</h1> 
-    <div x-data="{
-        callsAndSms : '',
-        total : ''
-    }">
 
+        <hr> 
+
+        <h1>Total Phone Bill Widget</h1> 
         <div class="totalphonebill">
             <input type="text" x-model="callsAndSms">
             <button @click="total = !total">Calculate</button>
             <div x-show.transition="total" x-text="totalPhoneBill(callsAndSms)"></div>
         </div>
 
+        <hr>
+
+        <h1>Transport Fee Widget</h1>
+        <div class="transportFee">
+            <input type="text" x-model="shift">
+            <button @click="amount = !amount">Show Cost</button>
+            <div x-show.transition="amount" x-text="transportFee(shift)"></div>
+        </div>
+
+        <hr>
+
+        <h1>Items Over 20 Widget</h1>
+        <div class="itemsOver">
+            <div class="firstList">
+                <h3>First List</h3>
+                <table>
+                    <tr >
+                        <th>Fruits</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr >
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList1">
+                                    <li style="list-style-type: none;" x-text="item.name"></li>
+                                </template>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList1">
+                                    <li style="list-style-type: none;" x-text="item.qty"></li>
+                                </template>
+                            </ul>
+                        </td>                    
+                    </tr>
+                </table>
+            </div>
+            <div class="secondList">
+                <h3>Second List</h3>
+                <table>
+                    <tr >
+                        <th>Fruits</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr >
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList2">
+                                    <li style="list-style-type: none;" x-text="item.name"></li>
+                                </template>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList2">
+                                    <li style="list-style-type: none;" x-text="item.qty"></li>
+                                </template>
+                            </ul>
+                        </td>                    
+                    </tr>
+                </table>
+            </div>
+            <div class="Third List">
+                <h3>Third List</h3>
+                <table>
+                    <tr >
+                        <th>Fruits</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr >
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList3">
+                                    <li style="list-style-type: none;" x-text="item.name"></li>
+                                </template>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <template x-for="item in itemList3">
+                                    <li style="list-style-type: none;" x-text="item.qty"></li>
+                                </template>
+                            </ul>
+                        </td>                    
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <input type="text" x-model="itemList">
+        <input typet="number" x-model="threshold">
+        <button @click="itemsOver = !itemsOver">Show Items</button>
+        <div x-show.transition="itemsOver" x-text="findItemsOver(itemList, threshold)"></div>
+        <div x-text="listOfItems"></div>
     </div> 
-    <hr>
-    <h1>Transport Fee Widget</h1>
-    <div x-data="{
-        shift : '',
-        amount : '',
-    }">
-
-    <div class="transportFee">
-        <input type="text" x-model="shift">
-        <button @click="amount = !amount">Show Cost</button>
-        <div x-show.transition="amount" x-text="transportFee(shift)"></div>
-    </div>    
-
-    </div>
 </body>
 </html>
