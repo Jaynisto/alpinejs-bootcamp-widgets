@@ -25,6 +25,10 @@
     align-items: center;
 }
 
+.filterButtons {
+    display: flex;
+}
+
 button { 
     height: 40px;
     width: 76px;

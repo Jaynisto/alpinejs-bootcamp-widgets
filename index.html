@@ -22,28 +22,28 @@
         amount : '',
         callsAndSms : '',
         total : '',
-        itemList1 : [
-        {name : 'apples', qty : 10},
-        {name : 'pears', qty : 19},
-        {name : 'bananas', qty : 17},
-        {name : 'apples', qty : 3},
+        billType : [
+        {name : 'call', price : 2.75},
+        {name : 'sms', price : 0.65}
         ],
-        itemList2 : [
-        {name : 'apples', qty : 10},
-        {name : 'pears', qty : 37},
-        {name : 'bananas', qty : 27},
-        {name : 'apples', qty : 3},
+        transport : [
+        {shift : 'morning', cost : 20},
+        {shift : 'afternoon', cost : 10},
+        {shift : 'nightshift', cost : 'free'}
         ],
-        itemList3 : [
-        {name : 'apples', qty : 40},
-        {name : 'pears', qty : 20},
-        {name : 'bananas', qty : 23},
-        {name : 'apples', qty : 37}
-        ],
-        itemsOver : '',
-        itemList : '',
-        threshold : '',
-        listOfItems : []
+        itemName : '',
+        quantity : '',
+        itemsList: [],
+        updatingItems() {
+        var item = {
+        name: this.itemName,
+        quantity: this.quantity
+        };
+        this.itemsList.push(item);
+        },
+        filterItemsOverT(){
+            return findItemsOver20(this.itemsList)
+        }
         }">
 
         <input x-model="name"/>
@@ -62,6 +62,28 @@
 
         <h1>Total Phone Bill Widget</h1> 
         <div class="totalphonebill">
+            <table>
+                <tr >
+                    <th>Bill Type</th>
+                    <th>Cost</th>
+                </tr>
+                <tr >
+                    <td>
+                        <ul>
+                            <template x-for="item in billType">
+                                <li style="list-style-type: none;" x-text="item.name"></li>
+                            </template>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <template x-for="item in billType">
+                                <li style="list-style-type: none;" x-text="item.price"></li>
+                            </template>
+                        </ul>
+                    </td>                    
+                </tr>
+            </table>
             <input type="text" x-model="callsAndSms">
             <button @click="total = !total">Calculate</button>
             <div x-show.transition="total" x-text="totalPhoneBill(callsAndSms)"></div>
@@ -71,6 +93,28 @@
 
         <h1>Transport Fee Widget</h1>
         <div class="transportFee">
+            <table>
+                <tr >
+                    <th>Shift</th>
+                    <th>Cost</th>
+                </tr>
+                <tr >
+                    <td>
+                        <ul>
+                            <template x-for="item in transport">
+                                <li style="list-style-type: none;" x-text="item.shift"></li>
+                            </template>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <template x-for="item in transport">
+                                <li style="list-style-type: none;" x-text="item.cost"></li>
+                            </template>
+                        </ul>
+                    </td>                    
+                </tr>
+            </table>
             <input type="text" x-model="shift">
             <button @click="amount = !amount">Show Cost</button>
             <div x-show.transition="amount" x-text="transportFee(shift)"></div>
@@ -90,78 +134,31 @@
                     <tr >
                         <td>
                             <ul>
-                                <template x-for="item in itemList1">
+                                <template x-for="item in itemsList">
                                     <li style="list-style-type: none;" x-text="item.name"></li>
                                 </template>
                             </ul>
                         </td>
                         <td>
                             <ul>
-                                <template x-for="item in itemList1">
-                                    <li style="list-style-type: none;" x-text="item.qty"></li>
+                                <template x-for="item in itemsList">
+                                    <li style="list-style-type: none;" x-text="item.quantity"></li>
                                 </template>
                             </ul>
                         </td>                    
                     </tr>
                 </table>
-            </div>
-            <div class="secondList">
-                <h3>Second List</h3>
-                <table>
-                    <tr >
-                        <th>Fruits</th>
-                        <th>Quantity</th>
-                    </tr>
-                    <tr >
-                        <td>
-                            <ul>
-                                <template x-for="item in itemList2">
-                                    <li style="list-style-type: none;" x-text="item.name"></li>
-                                </template>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <template x-for="item in itemList2">
-                                    <li style="list-style-type: none;" x-text="item.qty"></li>
-                                </template>
-                            </ul>
-                        </td>                    
-                    </tr>
-                </table>
-            </div>
-            <div class="Third List">
-                <h3>Third List</h3>
-                <table>
-                    <tr >
-                        <th>Fruits</th>
-                        <th>Quantity</th>
-                    </tr>
-                    <tr >
-                        <td>
-                            <ul>
-                                <template x-for="item in itemList3">
-                                    <li style="list-style-type: none;" x-text="item.name"></li>
-                                </template>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                <template x-for="item in itemList3">
-                                    <li style="list-style-type: none;" x-text="item.qty"></li>
-                                </template>
-                            </ul>
-                        </td>                    
-                    </tr>
-                </table>
-
             </div>
         </div>
-        <input type="text" x-model="itemList">
-        <input typet="number" x-model="threshold">
-        <button @click="itemsOver = !itemsOver">Show Items</button>
-        <div x-show.transition="itemsOver" x-text="findItemsOver(itemList, threshold)"></div>
-        <div x-text="listOfItems"></div>
+        <input type="text" x-model="itemName">
+        <input type="number" x-model="quantity">
+        <button @click="updatingItems()">Update Items</button>
+        <div class="filterButtons">
+            <button @click="filterItemsOverT()">Items Over20</button>
+            <p x-text=""></p>
+            <button @click="">All Items</button>
+            <button @click="">Items Over</button>
+        </div>
     </div> 
 </body>
 </html>
