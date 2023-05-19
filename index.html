@@ -22,6 +22,7 @@
         amount : '',
         callsAndSms : '',
         total : '',
+        threshold : '',
         billType : [
         {name : 'call', price : 2.75},
         {name : 'sms', price : 0.65}
@@ -41,8 +42,17 @@
         };
         this.itemsList.push(item);
         },
-        filterItemsOverT(){
-            return findItemsOver20(this.itemsList)
+        itemsList: [],
+        filteringItemsOver20(){
+            const itemsOver20 = findItemsOver20(this.itemsList);
+            this.itemsList = itemsOver20 
+        },
+        itemsOverCertainThreshold(){
+            const thresholdItems = findItemsOver(this.itemsList, this.threshold);
+            this.itemsList = thresholdItems
+        },
+        storedList(){
+            
         }
         }">
 
@@ -150,14 +160,18 @@
                 </table>
             </div>
         </div>
-        <input type="text" x-model="itemName">
-        <input type="number" x-model="quantity">
+        <div class="inputItems">
+            <input type="text" x-model="itemName">
+            <input type="number" x-model="quantity">
+        </div>
         <button @click="updatingItems()">Update Items</button>
         <div class="filterButtons">
-            <button @click="filterItemsOverT()">Items Over20</button>
-            <p x-text=""></p>
-            <button @click="">All Items</button>
-            <button @click="">Items Over</button>
+            <button @click="filteringItemsOver20()">Items Over20</button>
+            <button @click="storedList()">All Items</button>
+            <div class="threshold">
+                <input type="number" x-model="threshold">
+                <button @click="itemsOverCertainThreshold()">Items Over</button>
+            </div>
         </div>
     </div> 
 </body>

@@ -29,6 +29,15 @@
     display: flex;
 }
 
+.inputItems {
+    display: flex;
+}
+
+.threshold {
+    display: flex;
+    flex-direction: column;
+}
+
 button { 
     height: 40px;
     width: 76px;
