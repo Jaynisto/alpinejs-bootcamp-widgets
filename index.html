@@ -35,14 +35,17 @@
         itemName : '',
         quantity : '',
         itemsList: [],
+        storedItems : [],
         updatingItems() {
         var item = {
         name: this.itemName,
         quantity: this.quantity
         };
+
         this.itemsList.push(item);
+        this.storedItems.push(item);
+
         },
-        itemsList: [],
         filteringItemsOver20(){
             const itemsOver20 = findItemsOver20(this.itemsList);
             this.itemsList = itemsOver20 
@@ -52,10 +55,9 @@
             this.itemsList = thresholdItems
         },
         storedList(){
-            
+            this.itemsList = this.storedItems;            
         }
         }">
-
         <input x-model="name"/>
         <button @click="greetingMessage = !greetingMessage">Greet</button>
         <div class="radios">
@@ -67,9 +69,7 @@
             <label for="xhosa">isiXhosa</label><br>
         </div>
         <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
-
         <hr> 
-
         <h1>Total Phone Bill Widget</h1> 
         <div class="totalphonebill">
             <table>
