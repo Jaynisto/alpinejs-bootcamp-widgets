@@ -9,168 +9,171 @@
     <script src="transportFee.js"></script>
     <script src="findingItemsOver20.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Bootcamp Widget</title>
 </head>
 <body>
-    <h1>The Greeting Widget</h1>
-    <div class="greet" x-data="{
-        name : '',
-        greetingMessage : '',
-        language : '',
-        shift : '',
-        amount : '',
-        callsAndSms : '',
-        total : '',
-        threshold : '',
-        billType : [
-        {name : 'call', price : 2.75},
-        {name : 'sms', price : 0.65}
-        ],
-        transport : [
-        {shift : 'morning', cost : 20},
-        {shift : 'afternoon', cost : 10},
-        {shift : 'nightshift', cost : 'free'}
-        ],
-        itemName : '',
-        quantity : '',
-        itemsList: [],
-        storedItems : [],
-        updatingItems() {
-        var item = {
-        name: this.itemName,
-        quantity: this.quantity
-        };
+    <div class="container-fluid">
+        <h1>The Greeting Widget</h1>
+        <div class="greet" x-data="{
+            name : '',
+            greetingMessage : '',
+            language : '',
+            shift : '',
+            amount : '',
+            callsAndSms : '',
+            total : '',
+            threshold : '',
+            billType : [
+            {name : 'call', price : 2.75},
+            {name : 'sms', price : 0.65}
+            ],
+            transport : [
+            {shift : 'morning', cost : 20},
+            {shift : 'afternoon', cost : 10},
+            {shift : 'nightshift', cost : 'free'}
+            ],
+            itemName : '',
+            quantity : '',
+            itemsList: [],
+            storedItems : [],
+            updatingItems() {
+            var item = {
+            name: this.itemName,
+            quantity: this.quantity
+            };
 
-        this.itemsList.push(item);
-        this.storedItems.push(item);
+            this.itemsList.push(item);
+            this.storedItems.push(item);
 
-        },
-        filteringItemsOver20(){
-            const itemsOver20 = findItemsOver20(this.itemsList);
-            this.itemsList = itemsOver20 
-        },
-        itemsOverCertainThreshold(){
-            const thresholdItems = findItemsOver(this.itemsList, this.threshold);
-            this.itemsList = thresholdItems
-        },
-        storedList(){
-            this.itemsList = this.storedItems;            
-        }
-        }">
-        <input x-model="name"/>
-        <button @click="greetingMessage = !greetingMessage">Greet</button>
-        <div class="radios">
-            <input type="radio" x-model="language" value="english">
-            <label for="english">English</label><br>
-            <input type="radio" x-model="language" value="zulu">
-            <label for="zulu">isiZulu</label><br>
-            <input type="radio" x-model="language" value="xhosa">
-            <label for="xhosa">isiXhosa</label><br>
-        </div>
-        <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
-        <hr> 
-        <h1>Total Phone Bill Widget</h1> 
-        <div class="totalphonebill">
-            <table>
-                <tr >
-                    <th>Bill Type</th>
-                    <th>Cost</th>
-                </tr>
-                <tr >
-                    <td>
-                        <ul>
-                            <template x-for="item in billType">
-                                <li style="list-style-type: none;" x-text="item.name"></li>
-                            </template>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <template x-for="item in billType">
-                                <li style="list-style-type: none;" x-text="item.price"></li>
-                            </template>
-                        </ul>
-                    </td>                    
-                </tr>
-            </table>
-            <input type="text" x-model="callsAndSms">
-            <button @click="total = !total">Calculate</button>
-            <div x-show.transition="total" x-text="totalPhoneBill(callsAndSms)"></div>
-        </div>
-
-        <hr>
-
-        <h1>Transport Fee Widget</h1>
-        <div class="transportFee">
-            <table>
-                <tr >
-                    <th>Shift</th>
-                    <th>Cost</th>
-                </tr>
-                <tr >
-                    <td>
-                        <ul>
-                            <template x-for="item in transport">
-                                <li style="list-style-type: none;" x-text="item.shift"></li>
-                            </template>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <template x-for="item in transport">
-                                <li style="list-style-type: none;" x-text="item.cost"></li>
-                            </template>
-                        </ul>
-                    </td>                    
-                </tr>
-            </table>
-            <input type="text" x-model="shift">
-            <button @click="amount = !amount">Show Cost</button>
-            <div x-show.transition="amount" x-text="transportFee(shift)"></div>
-        </div>
-
-        <hr>
-
-        <h1>Items Over 20 Widget</h1>
-        <div class="itemsOver">
-            <div class="firstList">
-                <h3>First List</h3>
+            },
+            filteringItemsOver20(){
+                const itemsOver20 = findItemsOver20(this.itemsList);
+                this.itemsList = itemsOver20 
+            },
+            itemsOverCertainThreshold(){
+                const thresholdItems = findItemsOver(this.itemsList, this.threshold);
+                this.itemsList = thresholdItems
+            },
+            storedList(){
+                this.itemsList = this.storedItems;            
+            }
+            }">
+            <input x-model="name"/>
+            <button @click="greetingMessage = !greetingMessage">Greet</button>
+            <div class="radios">
+                <input type="radio" x-model="language" value="english">
+                <label for="english">English</label><br>
+                <input type="radio" x-model="language" value="zulu">
+                <label for="zulu">isiZulu</label><br>
+                <input type="radio" x-model="language" value="xhosa">
+                <label for="xhosa">isiXhosa</label><br>
+            </div>
+            <div x-show.transition="greetingMessage" x-text="greet(name,language)"></div>
+            <hr> 
+            <h1>Total Phone Bill Widget</h1> 
+            <div class="totalphonebill">
                 <table>
                     <tr >
-                        <th>Fruits</th>
-                        <th>Quantity</th>
+                        <th>Bill Type</th>
+                        <th>Cost</th>
                     </tr>
                     <tr >
                         <td>
                             <ul>
-                                <template x-for="item in itemsList">
+                                <template x-for="item in billType">
                                     <li style="list-style-type: none;" x-text="item.name"></li>
                                 </template>
                             </ul>
                         </td>
                         <td>
                             <ul>
-                                <template x-for="item in itemsList">
-                                    <li style="list-style-type: none;" x-text="item.quantity"></li>
+                                <template x-for="item in billType">
+                                    <li style="list-style-type: none;" x-text="item.price"></li>
                                 </template>
                             </ul>
                         </td>                    
                     </tr>
                 </table>
+                <input type="text" x-model="callsAndSms">
+                <button @click="total = !total" class="btn btn-default">Calculate</button>
+                <div x-show.transition="total" x-text="totalPhoneBill(callsAndSms)"></div>
             </div>
-        </div>
-        <div class="inputItems">
-            <input type="text" x-model="itemName">
-            <input type="number" x-model="quantity">
-        </div>
-        <button @click="updatingItems()">Update Items</button>
-        <div class="filterButtons">
-            <button @click="filteringItemsOver20()">Items Over20</button>
-            <button @click="storedList()">All Items</button>
-            <div class="threshold">
-                <input type="number" x-model="threshold">
-                <button @click="itemsOverCertainThreshold()">Items Over</button>
+
+            <hr>
+
+            <h1>Transport Fee Widget</h1>
+            <div class="transportFee">
+                <table>
+                    <tr >
+                        <th>Shift</th>
+                        <th>Cost</th>
+                    </tr>
+                    <tr >
+                        <td>
+                            <ul>
+                                <template x-for="item in transport">
+                                    <li style="list-style-type: none;" x-text="item.shift"></li>
+                                </template>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <template x-for="item in transport">
+                                    <li style="list-style-type: none;" x-text="item.cost"></li>
+                                </template>
+                            </ul>
+                        </td>                    
+                    </tr>
+                </table>
+                <input type="text" x-model="shift">
+                <button @click="amount = !amount">Show Cost</button>
+                <div x-show.transition="amount" x-text="transportFee(shift)"></div>
+            </div>
+
+            <hr>
+
+            <h1>Items Over 20 Widget</h1>
+            <div class="itemsOver">
+                <div class="firstList">
+                    <h3>First List</h3>
+                    <table>
+                        <tr >
+                            <th>Fruits</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <tr >
+                            <td>
+                                <ul>
+                                    <template x-for="item in itemsList">
+                                        <li style="list-style-type: none;" x-text="item.name"></li>
+                                    </template>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <template x-for="item in itemsList">
+                                        <li style="list-style-type: none;" x-text="item.quantity"></li>
+                                    </template>
+                                </ul>
+                            </td>                    
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="inputItems">
+                <input type="text" x-model="itemName">
+                <input type="number" x-model="quantity">
+            </div>
+            <button @click="updatingItems()">Update Items</button>
+            <div class="filterButtons">
+                <button @click="filteringItemsOver20()">Items Over20</button>
+                <button @click="storedList()">All Items</button>
+                <div class="threshold">
+                    <input type="number" x-model="threshold">
+                    <button @click="itemsOverCertainThreshold()">Items Over</button>
+                </div>
             </div>
         </div>
     </div> 
